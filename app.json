@@ -18,6 +18,12 @@
       ]
     ],
     "name": "tvos",
-    "slug": "tvos"
+    "slug": "tvos",
+    "android": {
+      "package": "com.anonymous.tvos"
+    },
+    "ios": {
+      "bundleIdentifier": "com.anonymous.tvos"
+    }
   }
 }
