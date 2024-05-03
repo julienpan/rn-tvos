@@ -2,8 +2,11 @@ import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { SectionList, Image, StyleSheet, Text, TouchableHighlight, View, FlatList, ScrollView } from 'react-native';
 import datas from './assets/datas/datas.json';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import IPTVScreen from './components/IPTVScreen';
+
+import { Card } from '@rneui/themed';
 
 function HomeScreen() {
   const [focus, setFocus] = useState(null);
@@ -62,11 +65,20 @@ function HomeScreen() {
 }
 
 function DrawerScreen() {
-  const menu = ['Home', 'Search', 'Settings', 'Profile', 'Messages', 'Notifications', 'LogOut'];
+
+  const navigation = useNavigation();
+
+  const menu = ['Home', 'IPTV', 'Search', 'Settings', 'Profile', 'Messages', 'Notifications', 'LogOut'];
   const [focus, setFocus] = useState(null);
 
   const handlePress = (item) => {
     console.log('Button Press!', item);
+
+    if (item === 'IPTV') {
+      navigation.navigate('IPTV');
+    } else if(item === 'Home') {
+      navigation.navigate('Home');
+    }
   }
 
   return (
@@ -75,7 +87,7 @@ function DrawerScreen() {
         <TouchableHighlight 
           key={item} 
           onFocus={() => setFocus(index)} 
-          onPressIn={() => handlePress(item)} 
+          onPress={() => handlePress(item)} 
           underlayColor="transparent"
         >
           <View style={[styles.drawerButton, focus === index ? styles.itemDrawerFocused : null]}>
@@ -106,6 +118,7 @@ export default function App() {
       }} drawerContent={DrawerScreen}>
 
         <Drawer.Screen name="Home" component={HomeScreen} />
+        <Drawer.Screen name="IPTV" component={IPTVScreen} />
       </Drawer.Navigator>
     </NavigationContainer >
   );
