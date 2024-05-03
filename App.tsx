@@ -70,13 +70,16 @@ function DrawerScreen() {
 
   const menu = ['Home', 'IPTV', 'Search', 'Settings', 'Profile', 'Messages', 'Notifications', 'LogOut'];
   const [focus, setFocus] = useState(null);
+  const [currentNav, setCurrentNav] = useState('');
 
   const handlePress = (item) => {
     console.log('Button Press!', item);
 
     if (item === 'IPTV') {
+      setCurrentNav('IPTV');
       navigation.navigate('IPTV');
     } else if(item === 'Home') {
+      setCurrentNav('Home');
       navigation.navigate('Home');
     }
   }
@@ -91,7 +94,7 @@ function DrawerScreen() {
           underlayColor="transparent"
         >
           <View style={[styles.drawerButton, focus === index ? styles.itemDrawerFocused : null]}>
-            <Text style={[styles.itemDrawer, focus === index ? styles.focused : null]}>{item}</Text>
+            <Text style={[styles.itemDrawer, currentNav ===  item ? styles.current : null ,focus === index ? styles.focused : null]}>{item}</Text>
           </View>
         </TouchableHighlight>
       )}
@@ -129,6 +132,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
   },
+  current: {
+    color: 'red',
+  },
   container: {
     flex: 1,
     backgroundColor: 'black',
@@ -145,10 +151,10 @@ const styles = StyleSheet.create({
     textAlign:'center'
   },
   itemDrawerFocused: {
-    backgroundColor: 'white',
+    borderColor: 'white',
+    borderWidth: 1,
   },
   focused: {
-    color: 'red',
     fontSize: 30
   },
   button: {
